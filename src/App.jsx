@@ -29,11 +29,22 @@ export default function App() {
       )
     );
   };
+  const handleEdit = (id, taskName) => {
+    const newTaskName = prompt('Edit task:', taskName);
+    if (newTaskName !== null) {
+      setToDoList(
+        toDoList.map(task =>
+          task.id === id ? { ...task, taskName: newTaskName } : task
+        )
+      );
+    }
+  };
+  
 
   return (
     <div className='flex flex-col bg-black text-white h-auto w-auto px-20 py-4 mx-20 my-20'>
         <div>
-            <h1 className='text-center my-7'>This is simple todo list app</h1>
+            <h1 className='text-center my-7 text-lg'>TODO LIST</h1>
         </div>
       <div className='flex w-64 items-center justify-center mx-20'>
         <input
@@ -54,11 +65,13 @@ export default function App() {
         <div
           key={task.id}
           style={{ backgroundColor: task.complete ? 'gray' : 'black' }}
-          className='flex gap-19 items-center p-3 my-3'
+          className='flex gap-19 items-center  p-3 my-3'
         >
-          <h1 className='w-40'>{task.taskName}</h1>
+          <h1 className='w-5'>{task.taskName}</h1>
           <div  onClick={() => handleDelete(task.id)} className='mx-20 p-3 cursor-pointer'><p>X</p></div>
           <div className='cursor-pointer' onClick={() => handleComplete(task.id)}>Complete</div>
+          <div onClick={() => handleEdit(task.id, task.taskName)} className='mx-20'>Edit</div>
+
         </div>
       ))}
     </div>
